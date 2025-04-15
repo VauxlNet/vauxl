@@ -1,6 +1,18 @@
 [package]
 name = "vauxl"
 version = "0.1.0"
+authors = ["KyleDerZweite"]
 edition = "2024"
+description = "A privacy-centric, open-source Discord-like communication platform written in Rust."
+
+[workspace]
+members = [
+    "vauxl-client",
+    "vauxl-server",
+    "vauxl-protocol",
+    "vauxl-plugin-api"
+]
 
 [dependencies]
+
+[dev-dependencies]
