@@ -1,0 +1,20 @@
+[package]
+name = "vauxl-client"
+version = "0.1.0"
+edition = "2024"
+authors = ["KyleDerZweite"]
+description = "Native, modular, theme-driven client for the Vauxl communication platform."
+
+[dependencies]
+dioxus = { version = "0.5", features = ["desktop"] }
+dioxus-desktop = "0.5"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+anyhow = "1.0"
+
+# Optional: Pull in protocol definitions from your vauxl-protocol crate for networking
+vauxl-protocol = { path = "../vauxl-protocol", optional = true }
+
+[dev-dependencies]
+clippy = "0.1"
