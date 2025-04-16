@@ -1,4 +1,4 @@
-# <img src="vauxl_icon.png" alt="Vauxl Logo" width="40" height="40" style="vertical-align: middle; margin-right: 10px;"> Vauxl
+# <img src="vauxl_icon.png" alt="Vauxl Logo" width="30" height="30" style="vertical-align: middle; margin-right: 10px;"> Vauxl
 
 [![Rust](https://img.shields.io/badge/Rust-1.76%2B-orange?logo=rust)](https://www.rust-lang.org/)
 [![CI Status](https://github.com/VauxlNet/vauxl/actions/workflows/ci.yaml/badge.svg)](https://github.com/VauxlNet/vauxl/actions/workflows/ci.yaml)
@@ -114,6 +114,3 @@ Vauxl is licensed under the **[Apache License Version 2.0](LICENSE)**. See the L
 *   **Issues:** Report bugs or suggest features via [GitHub Issues](https://github.com/Vauxl/vauxl/issues).
 *   **Discussions:** For questions, ideas, and general discussion, use [GitHub Discussions](https://github.com/Vauxl/vauxl/discussions).
 *   **Chat:** <!-- TODO: Add link to Matrix/Discord server when created -->
-
----
-`
