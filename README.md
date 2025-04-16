@@ -3,7 +3,7 @@
 <!-- Generated based on plan discussion with KyleDerZweite on 2025-04-15 20:14:14 UTC -->
 <!-- TODO: Add Vauxl Logo Here -->
 
-[![CI Status](https://github.com/Vauxl/vauxl/actions/workflows/ci.yml/badge.svg)](https://github.com/Vauxl/vauxl/actions/workflows/ci.yml)
+[![CI Status](https://github.com/VauxlNet/vauxl/actions/workflows/ci.yaml/badge.svg)](https://github.com/VauxlNet/vauxl/actions/workflows/ci.yaml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 <!-- TODO: Add links to community chat (Discord/Matrix?) -->
 <!-- [![Discord](https://img.shields.io/discord/YOUR_DISCORD_ID?label=Discord)](YOUR_DISCORD_INVITE_LINK) -->

@@ -15,6 +15,3 @@ anyhow = "1.0"
 
 # Optional: Pull in protocol definitions from your vauxl-protocol crate for networking
 vauxl-protocol = { path = "../vauxl-protocol", optional = true }
-
-[dev-dependencies]
-clippy = "0.1"
