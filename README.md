@@ -107,7 +107,7 @@ We adhere to a **[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)**. Please ensure you f
 
 ## License
 
-Vauxl is licensed under the **[Apache License Version 2.0](LICENSE)**. See the LICENSE file for details.
+Vauxl is licensed under the **[Apache License Version 2.0](LICENSE.md)**. See the LICENSE file for details.
 
 ## Community & Contact
 
