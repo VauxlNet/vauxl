@@ -78,11 +78,14 @@ fn App() -> Element {
     let servers = create_mock_servers();
 
     // Find current server and channel
-    let current_server = servers.iter()
+    let current_server = servers
+        .iter()
         .find(|s| s.id == *active_server.get())
         .unwrap_or(&servers[0]);
 
-    let current_channel = current_server.channels.iter()
+    let current_channel = current_server
+        .channels
+        .iter()
         .find(|c| c.id == *active_channel.get() && matches!(c.channel_type, ChannelType::Text))
         .unwrap_or(&current_server.channels[0]);
 
@@ -156,132 +159,126 @@ fn App() -> Element {
     }
 }
 
-// Server Sidebar Component
+// ─────────────  Server sidebar  ──────────────────────────────────────────────
 #[component]
-fn ServerSidebar(servers: Vec<Server>, active_server: Signal<String>) -> Element {
+pub fn ServerSidebar(servers: Vec<Server>, active_server: Signal<String>) -> Element {
     rsx! {
         div { class: "w-18 bg-discord-darkest flex flex-col items-center pt-3 pb-2 overflow-y-auto",
-            // Home Button
-            div { class: "server-icon mb-2 bg-discord-primary",
-                "V"
-            }
+            /* ----------  Home button  ---------- */
+            div { class: "server-icon mb-2 bg-discord-primary", "V" }
 
-            // Server Divider
             div { class: "w-8 h-0.5 bg-gray-700 rounded-full my-1" }
 
-            // Server List
+            /* ----------  Server list  ---------- */
             {servers.into_iter().map(|server| {
-                let server_id = server.id.clone();
-                let is_active = *active_server.get() == server.id;
+                // local data we need inside the closure
+                let server_id  = server.id.clone();
+                let is_active  = *active_server.get() == server_id;
 
-                rsx! {
+                // every map‑iteration returns one Node
+                rsx!(
                     div {
-                        class: "server-icon {if is_active { \"active\" } else { \"\" }}",
+                        key:   "{server_id}",
+                        class: {
+                            if is_active {
+                                "server-icon active"
+                            } else {
+                                "server-icon"
+                            }
+                        },
                         onclick: move |_| active_server.set(server_id.clone()),
-                        key: "{server.id}",
 
-                        if server.icon.is_empty() {
-                            // Server Initials
-                            "{server.name.chars().next().unwrap_or('S')}"
-                        } else {
-                            // Server Icon (would be an img in real implementation)
-                            "{server.icon}"
+                        {
+                            // icon or first letter
+                            if server.icon.is_empty() {
+                                rsx!( span { "{server.name.chars().next().unwrap_or('S')}" } )
+                            } else {
+                                rsx!( span { "{server.icon}" } )
+                            }
                         }
                     }
-                }
+                )
             })}
 
-            // Add Server Button
-            div { class: "server-icon mt-2 bg-discord-darker text-discord-primary hover:bg-discord-primary hover:text-white",
+            /* ----------  Add server button  ---------- */
+            div {
+                class:
+                    "server-icon mt-2 bg-discord-darker text-discord-primary \
+                     hover:bg-discord-primary hover:text-white",
                 "+"
             }
         }
     }
 }
 
-// Channel List Component
+// ─────────────  Channel list  ────────────────────────────────────────────────
 #[component]
-fn ChannelList(channels: Vec<Channel>, active_channel: Signal<String>) -> Element {
-    let mut categories: HashMap<String, Vec<&Channel>> = HashMap::new();
-    let mut uncategorized: Vec<&Channel> = Vec::new();
-
-    // Group channels by category
-    for channel in &channels {
-        match channel.channel_type {
-            ChannelType::Category => {
-                categories.insert(channel.id.clone(), Vec::new());
-            }
-            _ => {
-                uncategorized.push(channel);
-            }
-        }
-    }
-
+pub fn ChannelList(channels: Vec<Channel>, active_channel: Signal<String>) -> Element {
     rsx! {
         div { class: "flex flex-col space-y-1",
-            // Uncategorized channels first
-            {uncategorized.into_iter().map(|channel| {
-                let channel_id = channel.id.clone();
-                let is_active = *active_channel.get() == channel.id;
+            {
+                channels
+                    .into_iter()
+                    .filter(|c| c.channel_type != ChannelType::Category)
+                    .map(|channel| {
+                        let cid        = channel.id.clone();
+                        let is_active  = *active_channel.get() == cid;
+                        let icon = match channel.channel_type {
+                            ChannelType::Text  => "#",
+                            ChannelType::Voice => "🔊",
+                            _                  => "",
+                        };
 
-                rsx! {
-                    div {
-                        class: "channel {if is_active { \"active\" } else { \"\" }}",
-                        onclick: move |_| active_channel.set(channel_id.clone()),
-                        key: "{channel.id}",
+                        rsx!(
+                            div {
+                                key:   "{cid}",
+                                class: { if is_active { "channel active" } else { "channel" } },
+                                onclick: move |_| active_channel.set(cid.clone()),
 
-                        // Channel icon based on type
-                        span { class: "mr-1 text-discord-channelText",
-                            {match channel.channel_type {
-                                ChannelType::Text => "#",
-                                ChannelType::Voice => "🔊",
-                                _ => "",
-                            }}
-                        }
-
-                        // Channel name
-                        span { "{channel.name}" }
-                    }
-                }
-            })}
+                                span { class: "mr-1 text-discord-channelText", "{icon}" }
+                                span { "{channel.name}" }
+                            }
+                        )
+                    })
+            }
         }
     }
 }
 
-// Chat Messages Component
+// ─────────────  Chat messages  ───────────────────────────────────────────────
 #[component]
-fn ChatMessages(messages: Vec<Message>) -> Element {
+pub fn ChatMessages(messages: Vec<Message>) -> Element {
     rsx! {
         div { class: "flex-1 overflow-y-auto py-4 px-4 space-y-1",
             {
-                messages.into_iter().map(|message| {
-                rsx! {
-                    div { class: "message", key: "{message.id}",
-                        // User avatar
-                        div { class: "w-10 h-10 rounded-full bg-gray-600 mr-3 flex-shrink-0" }
-
-                        // Message content
-                        div { class: "flex-1",
-                            div { class: "flex items-center",
-                                span { class: "font-medium mr-2", "{message.author.username}" }
-                                span { class: "text-xs text-discord-channelText", "{message.timestamp}" }
-                            }
-                            p { class: "text-gray-100 break-words", "{message.content}" }
-                        }
-                    }
-                }
-                })
-            }
-
-            // Show empty state if no messages
-            {
+                /* no messages yet ------------------------------------------------- */
                 if messages.is_empty() {
-                   rsx! {
-                       div { class: "flex flex-col items-center justify-center h-full text-discord-channelText",
-                           div { class: "text-lg mb-2", "No messages yet!" }
-                           div { "Send a message to start the conversation." }
-                       }
-                   }
+                    rsx!(
+                        div { class: "flex flex-col items-center justify-center h-full text-discord-channelText",
+                            div { class: "text-lg mb-2", "No messages yet!" }
+                            div { "Send a message to start the conversation." }
+                        }
+                    )
+                } else {
+                /* render all messages -------------------------------------------- */
+                    rsx!(
+                        {
+                            messages.into_iter().map(|m| {
+                                rsx!(
+                                    div { key: "{m.id}", class: "flex items-start message py-2",
+                                        div { class: "w-10 h-10 rounded-full bg-gray-600 mr-3 flex-shrink-0" }
+                                        div { class: "flex-1",
+                                            div { class: "flex items-baseline",
+                                                span { class: "font-medium mr-2 text-white", "{m.author.username}" }
+                                                span { class: "text-xs text-discord-channelText", "{m.timestamp}" }
+                                            }
+                                            p { class: "text-gray-100 break-words", "{m.content}" }
+                                        }
+                                    }
+                                )
+                            })
+                        }
+                    )
                 }
             }
         }
@@ -347,8 +344,14 @@ fn MessageInput() -> Element {
 #[component]
 fn UsersList(users: Vec<User>) -> Element {
     // Group users by status
-    let online_users: Vec<_> = users.iter().filter(|u| matches!(u.status, UserStatus::Online)).collect();
-    let offline_users: Vec<_> = users.iter().filter(|u| matches!(u.status, UserStatus::Offline)).collect();
+    let online_users: Vec<_> = users
+        .iter()
+        .filter(|u| matches!(u.status, UserStatus::Online))
+        .collect();
+    let offline_users: Vec<_> = users
+        .iter()
+        .filter(|u| matches!(u.status, UserStatus::Offline))
+        .collect();
 
     rsx! {
         div { class: "overflow-y-auto",
@@ -464,13 +467,53 @@ fn create_mock_servers() -> Vec<Server> {
 
 fn create_mock_users() -> Vec<User> {
     vec![
-        User { id: "user1".to_string(), username: "Admin".to_string(), avatar: "".to_string(), status: UserStatus::Online },
-        User { id: "user2".to_string(), username: "KyleDerZweite".to_string(), avatar: "".to_string(), status: UserStatus::Online },
-        User { id: "user3".to_string(), username: "RustEnthusiast".to_string(), avatar: "".to_string(), status: UserStatus::Idle },
-        User { id: "user4".to_string(), username: "PrivacyFan".to_string(), avatar: "".to_string(), status: UserStatus::DoNotDisturb },
-        User { id: "user5".to_string(), username: "DioxusUser".to_string(), avatar: "".to_string(), status: UserStatus::Offline },
-        User { id: "user6".to_string(), username: "TailwindLover".to_string(), avatar: "".to_string(), status: UserStatus::Offline },
-        User { id: "user7".to_string(), username: "LongUsernameThatMightNeedTruncation".to_string(), avatar: "".to_string(), status: UserStatus::Online },
-        User { id: "user8".to_string(), username: "AnotherOnlineUser".to_string(), avatar: "".to_string(), status: UserStatus::Online },
+        User {
+            id: "user1".to_string(),
+            username: "Admin".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Online,
+        },
+        User {
+            id: "user2".to_string(),
+            username: "KyleDerZweite".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Online,
+        },
+        User {
+            id: "user3".to_string(),
+            username: "RustEnthusiast".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Idle,
+        },
+        User {
+            id: "user4".to_string(),
+            username: "PrivacyFan".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::DoNotDisturb,
+        },
+        User {
+            id: "user5".to_string(),
+            username: "DioxusUser".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Offline,
+        },
+        User {
+            id: "user6".to_string(),
+            username: "TailwindLover".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Offline,
+        },
+        User {
+            id: "user7".to_string(),
+            username: "LongUsernameThatMightNeedTruncation".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Online,
+        },
+        User {
+            id: "user8".to_string(),
+            username: "AnotherOnlineUser".to_string(),
+            avatar: "".to_string(),
+            status: UserStatus::Online,
+        },
     ]
 }

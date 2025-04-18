@@ -1,6 +1,6 @@
 [package]
 name = "vauxl-client"
-version = "0.6.1" # Match workspace version
+version = "0.1.0" # Match workspace version
 edition = "2024"
 authors = ["KyleDerZweite"]
 description = "Native, modular, theme-driven client for the Vauxl communication platform."
@@ -12,20 +12,7 @@ dioxus = { workspace = true, features = ["router"] }
 dioxus-desktop = { workspace = true, optional = true }
 dioxus-web = { workspace = true, optional = true }
 dioxus-mobile = { version = "0.6.2", optional = true }  # Explicitly using 0.6.2 as there's no 0.6.3
-uuid = { workspace = true, features = ["v4"] }
-chrono = { workspace = true, features = ["serde"] }
-serde = { workspace = true, features = ["derive"] }
-serde_json = { workspace = true }
-reqwest = { workspace = true, features = ["json"] }
-tokio = { workspace = true, features = ["full"] }
-log = { workspace = true }
-env_logger = { workspace = true }
-wasm-bindgen = { workspace = true }
 
-# Asset management (from workspace)
-manganis = { workspace = true }
-manganis-core = { workspace = true }
-manganis-macro = { workspace = true }
 
 [features]
 default = ["desktop"]
