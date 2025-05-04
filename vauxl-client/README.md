@@ -141,7 +141,7 @@ Option B: Pure‑Rust KV store (sled, RocksDB, or LMDB) + your own envelope encr
 – On startup, load it and unlock the DB.
 • Schema example (if using SQLite):
 
-SQL
+```SQL
 CREATE TABLE conversations (
 id           BLOB PRIMARY KEY,   -- SHA256 of peer’s public key
 display_name TEXT NOT NULL
@@ -153,34 +153,35 @@ is_outgoing      BOOLEAN,
 ciphertext       BLOB,
 PRIMARY KEY (conversation_id, timestamp)
 );
+```
 • All ciphertext blobs inside messages are already E2EE; SQLCipher just encrypts the whole file so someone who steals messages.db can’t even see metadata.
 
 “No‑Log” & Minimal Persistence
-• Never write plaintext or metadata you don’t need:
-– Don’t log raw packet dumps, don’t log session keys.
-– Only keep display names, timestamps, and ciphertext.
-• If you want ephemeral chats, add a “self‑destruct” flag on conversations that purges history when the session closes.
-• Allow users to wipe all local data/redact histories via a menu.
+- Never write plaintext or metadata you don’t need:
+- Don’t log raw packet dumps, don’t log session keys.
+- Only keep display names, timestamps, and ciphertext.
+- If you want ephemeral chats, add a “self‑destruct” flag on conversations that purges history when the session closes.
+- Allow users to wipe all local data/redact histories via a menu.
 
 Offline Delivery (Later)
-• Phase 1 (LAN‑only, online‑only): messages only flow if both peers are live.
-• Phase 2 (optional small relay): spin up lightweight TURN‑style relays that store only encrypted blobs until the peer fetches them. The relay never sees keys or plaintext.
+- Phase 1 (LAN‑only, online‑only): messages only flow if both peers are live.
+- Phase 2 (optional small relay): spin up lightweight TURN‑style relays that store only encrypted blobs until the peer fetches them. The relay never sees keys or plaintext.
 
 Putting It Together
-• Folder layout on disk (example Linux):
-~/.local/share/vauxl/
-├── keys.bin (encrypted identity & history keys, stored via OS keystore)
-├── messages.db (SQLCipher‑encrypted SQLite file)
-└── config.json (minimal: last‑used peers, STUN/TURN servers)
-• At startup:
+- Folder layout on disk (example Linux):
+  - ~/.local/share/vauxl/ 
+  <br>├── keys.bin (encrypted identity & history keys, stored via OS keystore)
+  <br>├── messages.db (SQLCipher‑encrypted SQLite file)
+  <br>└── config.json (minimal: last‑used peers, STUN/TURN servers)
+- At startup:
 
 Unlock OS keystore → load identity & history keys.
 Open SQLCipher DB with history key.
 Spawn your ICE/STUN handler, ready to accept inbound connections.
-• At shutdown:
-– Close all P2P sessions, zero‑out session keys in memory, close DB.
+- At shutdown:
+- Close all P2P sessions, zero‑out session keys in memory, close DB.
 With this design you get:
-• True device‑only P2P E2EE (no central server)
-• Encrypted data‑at‑rest with minimal metadata
-• No always‑on SQL server—just an embedded DB
-• Full privacy‑by‑design: nothing is persisted unless it’s ciphertext you need to display chat history.
+- True device‑only P2P E2EE (no central server)
+- Encrypted data‑at‑rest with minimal metadata
+- No always‑on SQL server—just an embedded DB
+- Full privacy‑by‑design: nothing is persisted unless it’s ciphertext you need to display chat history.

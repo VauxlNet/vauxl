@@ -8,14 +8,23 @@ license = "Apache-2.0"
 
 [dependencies]
 # Core dependencies from workspace
-dioxus = { workspace = true, features = ["router"] }
-dioxus-desktop = { workspace = true, optional = true }
-dioxus-web = { workspace = true, optional = true }
-dioxus-mobile = { version = "0.6.2", optional = true }  # Explicitly using 0.6.2 as there's no 0.6.3
+dioxus          = { workspace = true, features = ["router"] }
+dioxus-desktop  = { workspace = true, optional = true }
+dioxus-web      = { workspace = true, optional = true }
+dioxus-core     = { workspace = true, optional = true }
+dioxus-mobile   = { version = "0.6.2", optional = true }  # Explicitly using 0.6.2 as there's no 0.6.3
+tokio           = { workspace = true }
+serde           = { workspace = true, features = ["derive"] }
+serde_json      = { workspace = true }
+serde_yaml      = { workspace = true}
+anyhow          = { workspace = true }
+directories     = { workspace = true }
+zip             = { workspace = true }
+fs_extra        = { workspace = true }
 
 
 [features]
 default = ["desktop"]
-web = ["dioxus-web", "dioxus/web"]
+web     = ["dioxus-web", "dioxus/web"]
 desktop = ["dioxus-desktop", "dioxus/desktop"]
-mobile = ["dioxus-mobile", "dioxus/mobile"]
+mobile  = ["dioxus-mobile", "dioxus/mobile"]
