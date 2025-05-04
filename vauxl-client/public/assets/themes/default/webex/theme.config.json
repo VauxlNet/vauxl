@@ -1,0 +1,31 @@
+{
+  "theme_id": "webex-theme-toPbsTpXerZ6T0pswENKeoiQbACjwWEy",
+  "name": "Webex Theme",
+  "version": "0.1.0",
+  "author": "Vauxl - Kyle",
+  "description": "A custom theme with a unique layout and dark/light style variations.",
+  "readme_file": "README.md",
+
+  "layout": {
+    "file": "layout.yaml",
+    "default_view": "main_view"
+  },
+
+  "styles": [
+    {
+      "style_id": "dark",
+      "name": "Dark Mode",
+      "description": "Applies a dark color scheme.",
+      "css_file": "design.css",
+      "root_class": "style-dark"
+    },
+    {
+      "style_id": "light",
+      "name": "Light Mode",
+      "description": "Applies a light color scheme.",
+      "css_file": "design.css",
+      "root_class": "style-light"
+    }
+  ],
+  "default_style_id": "dark"
+}
