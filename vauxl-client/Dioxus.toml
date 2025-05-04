@@ -1,0 +1,22 @@
+[application]
+name = "vauxl-client"
+default_platform = "desktop"
+out_dir = "dist"
+asset_dir = "public"
+
+[web.app]
+title = "Vauxl"
+
+[web.watcher]
+reload_html = true
+watch_path = ["src", "public"]
+
+[desktop.app]
+title = "Vauxl"
+width = 1200
+height = 800
+
+# Hot reloading settings
+[application.hot_reload]
+enabled = true
+only_watch = ["src", "public"]
