@@ -1,4 +1,9 @@
-# https://github.com/copilot/c/201a63de-e81e-4355-a907-45376dd834c1
+# <img src="vauxl_icon.png" alt="Vauxl Logo" width="30" height="30" style="vertical-align: middle; margin-right: 10px;"> Vauxl
+
+[![Rust](https://img.shields.io/badge/Rust-1.76%2B-orange?logo=rust)](https://www.rust-lang.org/)
+[![CI Status](https://github.com/VauxlNet/vauxl/actions/workflows/client_ci.yaml/badge.svg)](https://github.com/VauxlNet/vauxl/actions/workflows/client_ci.yaml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 
 ## Architecture
 
