@@ -2,5 +2,8 @@
 name = "core"
 version = "0.0.0"
 edition = "2024"
+authors = ["KyleDerZweite"]
+description = "Core functionality and barebone mechanics for the Vauxl client."
+license = "Apache-2.0"
 
 [dependencies]

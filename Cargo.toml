@@ -18,6 +18,7 @@ dioxus          = { version = "0.6.3" }
 dioxus-desktop  = { version = "0.6.3" }
 dioxus-web      = { version = "0.6.3" }
 dioxus-core     = { version = "0.6.3" }
+dioxus-mobile   = { version = "0.6.2" }
 
 serde           = { version = "1.0" }
 serde_json      = { version = "1.0" }

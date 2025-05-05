@@ -2,5 +2,8 @@
 name = "api"
 version = "0.0.0"
 edition = "2024"
+authors = ["KyleDerZweite"]
+description = "Middleware API that provides standardized interfaces between core functionality and frontend UI components"
+license = "Apache-2.0"
 
 [dependencies]

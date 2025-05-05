@@ -2,5 +2,9 @@
 name = "frontend"
 version = "0.0.0"
 edition = "2024"
+authors = ["KyleDerZweite"]
+description = "Modular, customizable UI components and layouts for the Vauxl client."
+license = "Apache-2.0"
+
 
 [dependencies]

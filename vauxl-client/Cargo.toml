@@ -1,6 +1,6 @@
 [package]
 name = "vauxl-client"
-version = "0.1.0" # Match workspace version
+version = "0.0.0" # Match workspace version
 edition = "2024"
 authors = ["KyleDerZweite"]
 description = "Native, modular, theme-driven client for the Vauxl communication platform."
@@ -12,7 +12,7 @@ dioxus          = { workspace = true }
 dioxus-desktop  = { workspace = true, optional = true }
 dioxus-web      = { workspace = true, optional = true }
 dioxus-core     = { workspace = true, optional = true }
-dioxus-mobile   = { version = "0.6.2", optional = true }  # Explicitly using 0.6.2 as there's no 0.6.3
+dioxus-mobile   = { workspace = true, optional = true }  # Explicitly using 0.6.2 as there's no 0.6.3
 tokio           = { workspace = true }
 serde           = { workspace = true, features = ["derive"] }
 serde_json      = { workspace = true }
