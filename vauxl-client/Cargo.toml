@@ -8,7 +8,7 @@ license = "Apache-2.0"
 
 [dependencies]
 # Core dependencies from workspace
-dioxus          = { workspace = true, features = ["router"] }
+dioxus          = { workspace = true }
 dioxus-desktop  = { workspace = true, optional = true }
 dioxus-web      = { workspace = true, optional = true }
 dioxus-core     = { workspace = true, optional = true }

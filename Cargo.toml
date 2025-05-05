@@ -2,6 +2,9 @@
 resolver = "2"
 members = [
     "vauxl-client",
+    "vauxl-client/api",
+    "vauxl-client/core",
+    "vauxl-client/frontend",
     "vauxl-server",
     "vauxl-protocol",
     "vauxl-plugin-api"
