@@ -2,6 +2,10 @@
 # Ignore Cargo artifacts and compiled files
 /target/
 **/target/
+
+/archive/
+/archive/*
+
 Cargo.lock
 
 # Ignore generated documentation
