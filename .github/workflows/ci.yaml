@@ -2,9 +2,9 @@ name: Vauxl CI
 
 on:
   push:
-    branches: [ "master", "main", "dev", "develop" ]
+    branches: [ "master", "dev"]
   pull_request:
-    branches: [ "master", "main", "dev", "develop" ]
+    branches: [ "master", "dev"]
 
 env:
   CARGO_TERM_COLOR: always

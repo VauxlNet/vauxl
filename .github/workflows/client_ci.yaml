@@ -1,0 +1,70 @@
+name: Vauxl-Client CI
+
+on:
+  push:
+    branches: [ "master", "dev"]
+    # Trigger this workflow ONLY when files relevant to the client crate change.
+    # Add paths to any shared crates that the client depends on.
+    paths:
+      - 'vauxl-client/**'
+      - 'Cargo.lock' # Lock file changes affect dependencies
+      - 'Cargo.toml' # Workspace changes might be relevant
+      - 'vauxl-client/Cargo.toml' # Client-specific dependency changes
+
+  pull_request:
+    branches: [ "master", "dev"]
+    paths:
+      - 'vauxl-client/**'
+      - 'Cargo.lock'
+      - 'Cargo.toml'
+      - 'vauxl-client/Cargo.toml'
+
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test_client_crate:
+    name: Test Client
+    runs-on: ubuntu-latest # Or your preferred OS
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Rust
+        # Ensure this matches the toolchain in your main workflow if needed for consistency
+        uses: dtolnay/rust-toolchain@stable
+
+      # Reuse your caching setup - adapt the paths and keys if necessary
+      - name: Cache Cargo registry
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-registry-
+      - name: Cache Cargo git
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-git-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-git-
+      - name: Cache Cargo target
+        uses: actions/cache@v4
+        with:
+          path: target
+          # Use a key specific to the client tests if you find caching conflicts,
+          # but shared target cache is usually fine in a workspace
+          key: ${{ runner.os }}-cargo-target-${{ hashFiles('vauxl-client/Cargo.toml', 'Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-target-
+
+
+      - name: Run tests for client crate
+        # Use -p <package_name> to specify the crate.
+        # Replace 'vauxl-client' if your vauxl-client/Cargo.toml specifies a different name.
+        # --all-targets is often unnecessary for a single binary/library crate test run,
+        # but doesn't hurt if you have multiple test targets defined.
+        run: cargo test -p vauxl-client --verbose
