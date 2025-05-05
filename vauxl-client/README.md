@@ -117,34 +117,34 @@ By starting with online‑only P2P and a hard “accept connection” barrier, y
 ## First Client Implementation Concepts - NeedToCheck
 
 Identity & Key Storage
-• On first launch, generate a device identity:
-– ed25519 keypair for signing/identity
-– X25519 keypair for Diffie‑Hellman key agreement
-• Persist the key material in an OS‑protected location (and nowhere else):
-– Desktop: use the user’s keyring/keychain (e.g. macOS Keychain, Windows DPAPI, Linux Secret Service) via a Rust crate like secret-service or keyring.
-– Mobile: use iOS Keychain / Android Keystore via your Rust bindings or via the GUI toolkit’s plugin.
-• If you can’t rely on an OS keystore (e.g. portable binary), store the raw private keys in a file under your app’s data directory (~/.local/share/vauxl or %APPDATA%\vauxl) with filesystem permissions locked to the user (0600).
+- On first launch, generate a device identity:
+- ed25519 keypair for signing/identity
+- X25519 keypair for Diffie‑Hellman key agreement
+- Persist the key material in an OS‑protected location (and nowhere else):
+- Desktop: use the user’s keyring/keychain (e.g. macOS Keychain, Windows DPAPI, Linux Secret Service) via a Rust crate like secret-service or keyring.
+- Mobile: use iOS Keychain / Android Keystore via your Rust bindings or via the GUI toolkit’s plugin.
+- If you can’t rely on an OS keystore (e.g. portable binary), store the raw private keys in a file under your app’s data directory (~/.local/share/vauxl or %APPDATA%\vauxl) with filesystem permissions locked to the user (0600).
 
 Runtime Session Keys & E2EE
-• When A wants to chat with B:
-– A copies B’s “address” (IP:port or hostname) and public ed25519 fingerprint.
-– A and B perform a mutual authenticated X25519 handshake over UDP (use ICE with STUN for NAT punching).
-– Derive a symmetric AEAD key (ChaCha20‑Poly1305).
-– All subsequent messages get encrypted+authenticated under that session key.
-• You never store these session keys on disk—keep them in memory only, tied to the open P2P socket.
-• When the session closes, zero‑out the session key in RAM.
+- When A wants to chat with B:
+- A copies B’s “address” (IP:port or hostname) and public ed25519 fingerprint.
+- A and B perform a mutual authenticated X25519 handshake over UDP (use ICE with STUN for NAT punching).
+- Derive a symmetric AEAD key (ChaCha20‑Poly1305).
+- All subsequent messages get encrypted+authenticated under that session key.
+- You never store these session keys on disk—keep them in memory only, tied to the open P2P socket.
+- When the session closes, zero‑out the session key in RAM.
 
 Local Message Storage (Encrypted at Rest)
-• You still need to persist chat history for offline viewing. Use an embedded, file‑based store—no server process:
+- You still need to persist chat history for offline viewing. Use an embedded, file‑based store—no server process:
 Option A: SQLite + SQLCipher
-– rusqlite with SQLCipher gives you ACID, indexing, and full‑database encryption.
-– The database file (e.g. ~/.local/share/vauxl/messages.db) is encrypted at rest with a key you derive on startup.
+- rusqlite with SQLCipher gives you ACID, indexing, and full‑database encryption.
+- The database file (e.g. ~/.local/share/vauxl/messages.db) is encrypted at rest with a key you derive on startup.
 Option B: Pure‑Rust KV store (sled, RocksDB, or LMDB) + your own envelope encryption
-– Use sled or heed and wrap each value with your own AEAD over the session key or a long‑term “history” key.
-• History key management:
-– Derive a single “history” symmetric key on first run (random 256‑bit), then store that in the same OS keystore as your identity keys.
-– On startup, load it and unlock the DB.
-• Schema example (if using SQLite):
+- Use sled or heed and wrap each value with your own AEAD over the session key or a long‑term “history” key.
+- History key management:
+- Derive a single “history” symmetric key on first run (random 256‑bit), then store that in the same OS keystore as your identity keys.
+- On startup, load it and unlock the DB.
+- Schema example (if using SQLite):
 
 ```SQL
 CREATE TABLE conversations (
@@ -159,7 +159,7 @@ ciphertext       BLOB,
 PRIMARY KEY (conversation_id, timestamp)
 );
 ```
-• All ciphertext blobs inside messages are already E2EE; SQLCipher just encrypts the whole file so someone who steals messages.db can’t even see metadata.
+- All ciphertext blobs inside messages are already E2EE; SQLCipher just encrypts the whole file so someone who steals messages.db can’t even see metadata.
 
 “No‑Log” & Minimal Persistence
 - Never write plaintext or metadata you don’t need:
