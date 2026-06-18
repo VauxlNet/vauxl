@@ -313,8 +313,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 
 **Cost**: Free
 
----
-
 #### Educational Institution License (Free)
 
 **Who Qualifies**:
@@ -338,8 +336,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 
 **Note**: Educational institutions may exceed the 50 employee threshold and still qualify for this license. The key requirement is that the institution is an accredited educational or research organization using Vauxl for its educational mission.
 
----
-
 #### Startup License (Free)
 
 **Who Qualifies**:
@@ -361,8 +357,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 **Cost**: Free
 
 **When Thresholds Are Exceeded**: Contact Vauxl for Commercial or Enterprise licensing.
-
----
 
 #### Community Hoster License (Free)
 
@@ -389,8 +383,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 
 **Fair Pricing Guidelines**: Vauxl publishes maximum per-user pricing adjusted annually based on reference infrastructure costs. Community Hosters must not exceed these rates.
 
----
-
 #### Commercial License (Required)
 
 **Who Must Obtain Commercial License**:
@@ -408,8 +400,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 - Vauxl-managed hosting on shared or dedicated infrastructure
 - Commercial support with SLA
 - Access to premium TURN bandwidth
-
----
 
 #### Enterprise License
 
@@ -434,8 +424,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 
 **Pricing**: Custom, based on scale and requirements. Contact sales@vauxl.net.
 
----
-
 ### Source Disclosure Requirement
 
 **Core Software (AGPLv3)**:
@@ -448,8 +436,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 
 **Scope**: Client software (Apache 2.0) is exempt from disclosure requirements.
 
----
-
 ### Support Tiers
 
 | Tier | Availability | Price Model |
@@ -458,8 +444,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 | Startup Support | Direct engineering assistance | At cost (EUR 50/hour, no markup) |
 | Commercial Support | Business hours, email and chat | Included with Commercial License |
 | Enterprise Support | 24/7, phone, dedicated engineer, SLA | Included with Enterprise License |
-
----
 
 ### License Determination Guide
 
@@ -475,8 +459,6 @@ The **Server Software** is governed by the Vauxl Fair Use License, which include
 | Making profit (>EUR 25k margin) from hosting | Commercial | Via Vauxl | Paid |
 | Requiring on-premise for compliance | Enterprise | Yes | Custom |
 
----
-
 ### Enforcement and Good Faith
 
 Vauxl operates on a good-faith model:
@@ -485,8 +467,6 @@ Vauxl operates on a good-faith model:
 2. **Audit Rights**: Vauxl reserves the right to verify compliance for Commercial/Enterprise tiers
 3. **Grace Period**: Organizations exceeding thresholds have 90 days to contact Vauxl
 4. **Disputes**: Resolved through direct communication before legal action
-
----
 
 ### Data Protection Requirements
 
@@ -504,8 +484,6 @@ All operators of Vauxl servers must comply with applicable data protection laws.
 - Operators must respond to data subject requests as required by law
 
 See the LICENSE file (Section 8: Data Protection and Privacy) for complete requirements.
-
----
 
 ### Security Commitment
 

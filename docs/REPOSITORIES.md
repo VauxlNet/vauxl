@@ -2,10 +2,13 @@
 
 ## Active
 - `VauxlNet/vauxl` (this meta repo)
-- `VauxlNet/docs`
+- `VauxlNet/folio` (docs renderer for `docs.vauxl.net`, also shipped as a standalone project)
 - `VauxlNet/website`
+- `VauxlNet/matrix-spec` (versioned Vauxl Matrix extension contracts)
 - `VauxlNet/client` (to be created/pushed)
 - `VauxlNet/server` (to be created/pushed)
+
+Each component repo owns its own `docs/` directory. Folio aggregates them into `docs.vauxl.net`. There is no central docs repository.
 
 ## Archived
 Previous generation repositories are archived and renamed with the suffix `-legacy-v1`.
