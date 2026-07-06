@@ -2,6 +2,8 @@
 
 Vauxl is pivoting to a Matrix-first architecture.
 
+See `MVP_DIRECTION.md` for the confirmed MVP direction and security model, and `STACK_POSTMORTEM.md` for why the client stack is web UI on a Rust core.
+
 ## Direction
 
 - Vauxl provides a Matrix client implementing standard Matrix behavior first.
@@ -17,7 +19,8 @@ Vauxl is pivoting to a Matrix-first architecture.
 
 ## Repositories
 
-- Active: `docs`, `website`, `client`, `server`, `matrix-spec`
+- Active: `vauxl` (meta), `folio`, `website`, `client`, `server`
+- Planned: `matrix-spec` (repo not yet created)
 - Archived legacy repos are stored in `_archiv` with full `git bundle` backups.
 
 ## Initial MVP Scope

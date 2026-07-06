@@ -1,5 +1,7 @@
 # Service Model and Deployment Architecture
 
+> Update (2026-03-02): Vauxl has pivoted to a Matrix-first approach. See `MATRIX_FIRST.md` for the active direction and MVP scope. This document describes the pre-pivot service model and remains as historical context.
+
 This document describes the Vauxl service offerings, deployment models, licensing structure, and infrastructure operated by the Vauxl team.
 
 ## Table of Contents

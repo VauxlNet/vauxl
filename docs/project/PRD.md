@@ -1,5 +1,7 @@
 # Product Requirements Document
 
+> Update (2026-03-02): Vauxl has pivoted to a Matrix-first approach. See `MATRIX_FIRST.md` for the active direction and MVP scope. This document describes the pre-pivot product plan and remains as historical context.
+
 ## Document Information
 
 | Field | Value |
